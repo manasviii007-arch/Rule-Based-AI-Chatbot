@@ -1,3 +1,7 @@
+![Python](https://img.shields.io/badge/Python-3.12-blue)
+![License](https://img.shields.io/badge/License-MIT-green)
+![Status](https://img.shields.io/badge/Status-Completed-brightgreen)
+
 # 🤖 DecodeBot v2.0
 
 A modular **Rule-Based AI Chatbot** developed in Python as part of the **DecodeLabs Artificial Intelligence Industrial Training Program (Batch 2026)**.
