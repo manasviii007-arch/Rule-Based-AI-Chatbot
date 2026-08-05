@@ -1,173 +1,184 @@
 """
 responses.py
-Contains all predefined responses for DecodeBot.
+Stores predefined responses and loads dynamic content from data files.
 """
 
 import random
 
-# ----------------------------
-# Random Greetings
-# ----------------------------
+# ==========================================================
+# Helper Function
+# ==========================================================
+
+def load_random_line(file_path):
+    """
+    Load a random non-empty line from a text file.
+    """
+    try:
+        with open(file_path, "r", encoding="utf-8") as file:
+            lines = [line.strip() for line in file if line.strip()]
+
+        return random.choice(lines)
+
+    except FileNotFoundError:
+        return "Data file not found."
+
+    except Exception as e:
+        return f"Error: {e}"
+
+
+# ==========================================================
+# Dynamic Responses
+# ==========================================================
+
+def random_joke():
+    return load_random_line("data/jokes.txt")
+
+
+def random_fact():
+    return load_random_line("data/facts.txt")
+
+
+def random_quote():
+    return load_random_line("data/quotes.txt")
+
+
+# ==========================================================
+# Greeting Responses
+# ==========================================================
 
 GREETINGS = [
+
     "Hello! Nice to meet you.",
+
     "Hi there! Hope you're having a wonderful day.",
+
     "Greetings! How can I help you today?",
+
     "Welcome! I'm DecodeBot.",
-    "Hey! Ready to explore Rule-Based AI?"
+
+    "Hey! Ready to explore Rule-Based AI?",
+
+    "Hello! Let's build something amazing today.",
+
+    "Hi! What can I do for you?",
+
+    "Welcome back!",
+
+    "Nice to see you again!",
+
+    "Hello! Hope you're having a productive day."
 ]
 
-# ----------------------------
-# Motivation Quotes
-# ----------------------------
 
-MOTIVATION = [
-    "Success is the sum of small efforts repeated every day.",
-    "Dream big. Start small. Act now.",
-    "Learning never exhausts the mind.",
-    "Every expert was once a beginner.",
-    "Stay curious and keep building.",
-    "Believe in yourself.",
-    "Practice makes progress.",
-    "Consistency beats motivation.",
-    "Small improvements every day lead to big results.",
-    "Your future is created by what you do today."
-]
+def random_greeting():
+    return random.choice(GREETINGS)
 
-# ----------------------------
-# Programming Jokes
-# ----------------------------
 
-JOKES = [
-
-    "Why do programmers prefer dark mode? Because light attracts bugs!",
-
-    "Debugging is like being the detective in a crime movie where you are also the murderer.",
-
-    "Why did Python break up with Java? Because Java had too many classes.",
-
-    "A SQL query walks into a bar and asks: Can I join you?",
-
-    "Why was the computer cold? It forgot to close Windows.",
-
-    "Programmers don't make mistakes. They create unexpected features.",
-
-    "There are only 10 kinds of people: those who understand binary and those who don't.",
-
-    "AI won't replace programmers. It will replace programmers who refuse to learn.",
-
-    "Keyboard not found. Press F1 to continue.",
-
-    "Why did the developer go broke? Because he used up all his cache."
-]
-
-# ----------------------------
-# Fun Facts
-# ----------------------------
-
-FACTS = [
-
-    "Artificial Intelligence was officially introduced in 1956.",
-
-    "Python was created by Guido van Rossum.",
-
-    "Python was first released in 1991.",
-
-    "NASA uses Artificial Intelligence in space research.",
-
-    "Machine Learning is a subset of Artificial Intelligence.",
-
-    "The first computer bug was an actual moth.",
-
-    "Python is named after Monty Python, not the snake.",
-
-    "Rule-Based AI is one of the oldest forms of AI.",
-
-    "Robots can perform surgeries with incredible precision.",
-
-    "AI is used in self-driving cars, healthcare, finance and education."
-]
-
-# ----------------------------
-# Knowledge Base
-# ----------------------------
+# ==========================================================
+# Fixed Responses
+# ==========================================================
 
 RESPONSES = {
-
-    # Greetings
-    "hi": random.choice(GREETINGS),
-    "hello": random.choice(GREETINGS),
-    "hey": random.choice(GREETINGS),
 
     # About
     "what is your name":
         "My name is DecodeBot. I am a Rule-Based AI Chatbot developed using Python.",
 
     "who created you":
-        "I was created by Manasvi Chugh as part of the DecodeLabs AI Internship.",
+        "I was created by Manasvi Chugh as part of the DecodeLabs Artificial Intelligence Internship.",
 
     "what can you do":
-        "I can chat, answer predefined questions, tell jokes, show facts, perform calculations and more.",
+        "I can answer predefined questions, tell jokes, share AI facts, perform calculations, conduct quizzes and much more.",
 
     "about":
         """Project : DecodeBot v2.0
 Developer : Manasvi Chugh
 Language : Python
-Type : Rule-Based AI Chatbot
-Internship : DecodeLabs Artificial Intelligence Training""",
+Type : Rule-Based Artificial Intelligence Chatbot
+Internship : DecodeLabs Artificial Intelligence Industrial Training Program""",
 
-    # AI
+    # Artificial Intelligence
     "ai":
-        "Artificial Intelligence enables computers to simulate human intelligence.",
+        """Artificial Intelligence enables machines to simulate human intelligence such as learning, reasoning and decision making.""",
+
+    "artificial intelligence":
+        """Artificial Intelligence is the science of building intelligent computer systems capable of solving real-world problems.""",
 
     "machine learning":
-        "Machine Learning is a subset of AI that allows computers to learn from data.",
+        """Machine Learning is a subset of Artificial Intelligence where computers learn patterns from data.""",
 
     "deep learning":
-        "Deep Learning is a branch of Machine Learning based on neural networks.",
+        """Deep Learning is a branch of Machine Learning that uses neural networks with multiple layers.""",
 
+    # Programming Languages
     "python":
-        "Python is one of the most popular programming languages for AI and Data Science.",
+        "Python is a high-level programming language widely used for AI, Data Science, Automation and Web Development.",
 
     "java":
-        "Java is an object-oriented programming language widely used for enterprise software.",
+        "Java is an object-oriented programming language used in enterprise software and Android development.",
 
     "c++":
-        "C++ is a powerful language used in game development and high-performance applications.",
+        "C++ is a powerful programming language used in system software, game development and competitive programming.",
 
     "javascript":
-        "JavaScript is the programming language of the web.",
+        "JavaScript is the programming language used to build interactive websites.",
 
     "html":
-        "HTML is used to structure webpages.",
+        "HTML stands for HyperText Markup Language and defines the structure of webpages.",
 
     "css":
-        "CSS is used to style webpages.",
+        "CSS stands for Cascading Style Sheets and is used to style webpages.",
 
     # Feelings
     "i am happy":
-        "That's wonderful! Keep smiling and continue learning.",
+        "That's wonderful! Keep smiling and continue learning every day.",
 
     "i am sad":
-        "I'm sorry you're feeling sad. Remember that every challenge is temporary.",
+        "I'm sorry you're feeling sad. Every challenge is temporary. Keep believing in yourself.",
 
     "i am stressed":
-        "Take a deep breath, drink some water and take a short break.",
+        "Take a deep breath, drink some water and remember to take short breaks while studying.",
+
+    "i am bored":
+        "How about solving a coding problem or learning a new Python concept?",
 
     # Thanks
     "thanks":
-        "You're welcome!",
+        "You're welcome! Happy coding!",
 
     "thank you":
-        "Happy to help!",
+        "You're always welcome!",
 
     # Goodbye
     "bye":
         "Goodbye! Have a wonderful day.",
 
     "exit":
-        "Goodbye! Keep learning and building amazing projects!",
+        "Thank you for using DecodeBot. Keep learning and building amazing projects!",
 
     "quit":
-        "See you next time!"
+        "Session ended. See you next time!"
 }
+
+# ==========================================================
+# Greeting Commands
+# ==========================================================
+
+GREETING_COMMANDS = [
+    "hi",
+    "hello",
+    "hey",
+    "good morning",
+    "good afternoon",
+    "good evening"
+]
+
+# ==========================================================
+# Exit Commands
+# ==========================================================
+
+EXIT_COMMANDS = [
+    "bye",
+    "exit",
+    "quit"
+]

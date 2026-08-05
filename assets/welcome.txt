@@ -1,0 +1,8 @@
+Welcome to DecodeBot!
+
+I am a Rule-Based AI Chatbot built using Python.
+
+Type 'help' to see available commands.
+Type 'exit' to quit the application.
+
+Enjoy exploring Artificial Intelligence!

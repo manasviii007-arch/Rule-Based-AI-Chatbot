@@ -1,0 +1,17 @@
+AI=Artificial Intelligence enables machines to perform tasks that normally require human intelligence.
+
+Machine Learning=Machine Learning is a subset of Artificial Intelligence that learns from data.
+
+Deep Learning=Deep Learning uses multi-layer neural networks to solve complex problems.
+
+Python=Python is a high-level programming language widely used in AI and Data Science.
+
+Java=Java is an object-oriented programming language used in enterprise software.
+
+C++=C++ is commonly used for system software, game development and high-performance applications.
+
+JavaScript=JavaScript powers interactive web applications.
+
+HTML=HTML defines the structure of web pages.
+
+CSS=CSS is used to style web pages.

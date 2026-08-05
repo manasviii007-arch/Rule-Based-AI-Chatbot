@@ -1,211 +1,337 @@
 """
 chatbot.py
-Main file for DecodeBot v2.0
+DecodeBot v2.0
+Main Application
 """
 
-from responses import RESPONSES
-from utils import *
+from responses import (
+    RESPONSES,
+    GREETING_COMMANDS,
+    EXIT_COMMANDS,
+    random_greeting,
+    random_joke,
+    random_fact,
+    random_quote
+)
 
-# ==============================
-# Banner
-# ==============================
+from utils import (
+    banner,
+    bot_print,
+    show_help,
+    calculator,
+    square,
+    cube,
+    factorial,
+    percentage,
+    table,
+    show_date,
+    show_time,
+    system_info,
+    clear_screen,
+    quiz,
+    show_history
+)
+
+from logger import (
+    log_conversation,
+    view_log
+)
+
+import os
+
+
+# =====================================
+# Startup
+# =====================================
 
 clear_screen()
+
 banner()
 
-# ==============================
-# User Information
-# ==============================
+print()
+
+name = input("Bot : Hello! What's your name?\nYou : ").strip()
+
+if not name:
+    name = "Friend"
+
+bot_print(f"Welcome {name}!")
+
+bot_print("Type 'help' to view all available commands.")
 
 history = []
 
-name = input("\nBot : Hello! What's your name?\nYou : ").strip()
+print()
 
-if name == "":
-    name = "Friend"
-
-bot_print(f"Nice to meet you, {name}!")
-bot_print("Type 'help' to view all available commands.")
-
-# ==============================
-# Chat Loop
-# ==============================
+# =====================================
+# Main Chat Loop
+# =====================================
 
 while True:
 
-    user = input(f"\n{name} : ").lower().strip()
+    user = input(f"{name} : ").lower().strip()
 
     history.append(f"{name}: {user}")
 
-    # ==========================
-    # EXIT
-    # ==========================
+    # =====================================
+    # Greeting Commands
+    # =====================================
 
-    if user in ["exit", "bye", "quit"]:
+    if user in GREETING_COMMANDS:
 
-        reply = RESPONSES.get(user)
+        reply = random_greeting()
 
         bot_print(reply)
 
         history.append(f"Bot: {reply}")
 
-        save_chat(user, reply)
+        log_conversation(user, reply)
 
-        print("\nConversation saved to chat_history.txt")
+        continue
+
+
+    # =====================================
+    # Exit Commands
+    # =====================================
+
+    elif user in EXIT_COMMANDS:
+
+        reply = RESPONSES[user]
+
+        bot_print(reply)
+
+        history.append(f"Bot: {reply}")
+
+        log_conversation(user, reply)
+
+        print("\nConversation saved successfully.")
 
         break
 
-    # ==========================
-    # HELP
-    # ==========================
+
+    # =====================================
+    # Help
+    # =====================================
 
     elif user == "help":
 
         show_help()
 
-        history.append("Bot: Displayed Help Menu")
+        history.append("Bot: Displayed help menu")
 
-    # ==========================
-    # CALCULATOR
-    # ==========================
+        continue
+
+
+    # =====================================
+    # Calculator
+    # =====================================
 
     elif user == "calculator":
 
         calculator()
 
-        history.append("Bot: Calculator Used")
+        history.append("Bot: Calculator opened")
 
-    # ==========================
-    # SQUARE
-    # ==========================
+        continue
+
+
+    # =====================================
+    # Square
+    # =====================================
 
     elif user == "square":
 
         square()
 
-        history.append("Bot: Square Calculated")
+        history.append("Bot: Square calculated")
 
-    # ==========================
-    # CUBE
-    # ==========================
+        continue
+
+
+    # =====================================
+    # Cube
+    # =====================================
 
     elif user == "cube":
 
         cube()
 
-        history.append("Bot: Cube Calculated")
+        history.append("Bot: Cube calculated")
 
-    # ==========================
-    # FACTORIAL
-    # ==========================
+        continue
+
+
+    # =====================================
+    # Factorial
+    # =====================================
 
     elif user == "factorial":
 
         factorial()
 
-        history.append("Bot: Factorial Calculated")
+        history.append("Bot: Factorial calculated")
 
-    # ==========================
-    # PERCENTAGE
-    # ==========================
+        continue
+
+
+    # =====================================
+    # Percentage
+    # =====================================
 
     elif user == "percentage":
 
         percentage()
 
-        history.append("Bot: Percentage Calculated")
+        history.append("Bot: Percentage calculated")
 
-    # ==========================
-    # TABLE
-    # ==========================
+        continue
+
+
+    # =====================================
+    # Multiplication Table
+    # =====================================
 
     elif user == "table":
 
         table()
 
-        history.append("Bot: Multiplication Table Generated")
+        history.append("Bot: Table generated")
 
-    # ==========================
-    # JOKE
-    # ==========================
+        continue
+
+
+    # =====================================
+    # Joke
+    # =====================================
 
     elif user == "joke":
 
-        tell_joke()
+        reply = random_joke()
 
-        history.append("Bot: Told a Joke")
+        bot_print(reply)
 
-    # ==========================
-    # FACT
-    # ==========================
+        history.append(f"Bot: {reply}")
+
+        log_conversation(user, reply)
+
+        continue
+
+
+    # =====================================
+    # Fact
+    # =====================================
 
     elif user == "fact":
 
-        tell_fact()
+        reply = random_fact()
 
-        history.append("Bot: Shared a Fact")
+        bot_print(reply)
 
-    # ==========================
-    # MOTIVATION
-    # ==========================
+        history.append(f"Bot: {reply}")
+
+        log_conversation(user, reply)
+
+        continue
+
+
+    # =====================================
+    # Motivation
+    # =====================================
 
     elif user == "motivate":
 
-        motivate()
+        reply = random_quote()
 
-        history.append("Bot: Motivation Quote")
+        bot_print(reply)
 
-    # ==========================
-    # DATE
-    # ==========================
+        history.append(f"Bot: {reply}")
+
+        log_conversation(user, reply)
+
+        continue
+
+
+    # =====================================
+    # Date
+    # =====================================
 
     elif user == "date":
 
         show_date()
 
-        history.append("Bot: Displayed Date")
+        history.append("Bot: Displayed current date")
 
-    # ==========================
-    # TIME
-    # ==========================
+        continue
+
+
+    # =====================================
+    # Time
+    # =====================================
 
     elif user == "time":
 
         show_time()
 
-        history.append("Bot: Displayed Time")
+        history.append("Bot: Displayed current time")
 
-    # ==========================
-    # SYSTEM
-    # ==========================
+        continue
+    # =====================================
+    # System Information
+    # =====================================
 
     elif user == "system":
 
         system_info()
 
-        history.append("Bot: Displayed System Information")
+        history.append("Bot: Displayed system information")
 
-    # ==========================
-    # QUIZ
-    # ==========================
+        continue
+
+
+    # =====================================
+    # Quiz
+    # =====================================
 
     elif user == "quiz":
 
         quiz()
 
-        history.append("Bot: Quiz Completed")
+        history.append("Bot: Quiz completed")
 
-    # ==========================
-    # HISTORY
-    # ==========================
+        continue
+
+
+    # =====================================
+    # History
+    # =====================================
 
     elif user == "history":
 
         show_history(history)
 
-    # ==========================
-    # CLEAR
-    # ==========================
+        history.append("Bot: Displayed conversation history")
+
+        continue
+
+
+    # =====================================
+    # Log File
+    # =====================================
+
+    elif user == "logs":
+
+        print()
+
+        view_log()
+
+        print()
+
+        continue
+
+
+    # =====================================
+    # Clear Screen
+    # =====================================
 
     elif user == "clear":
 
@@ -213,48 +339,75 @@ while True:
 
         banner()
 
-    # ==========================
-    # ABOUT
-    # ==========================
+        continue
+
+
+    # =====================================
+    # About Project
+    # =====================================
 
     elif user == "about":
 
-        reply = RESPONSES.get("about")
+        reply = RESPONSES["about"]
 
         bot_print(reply)
 
         history.append(f"Bot: {reply}")
 
-        save_chat(user, reply)
+        log_conversation(user, reply)
 
-    # ==========================
-    # PREDEFINED RESPONSES
-    # ==========================
+        continue
+
+
+    # =====================================
+    # Predefined Responses
+    # =====================================
+
+    elif user in RESPONSES:
+
+        reply = RESPONSES[user]
+
+        bot_print(reply)
+
+        history.append(f"Bot: {reply}")
+
+        log_conversation(user, reply)
+
+        continue
+
+
+    # =====================================
+    # Unknown Command
+    # =====================================
 
     else:
 
-        reply = RESPONSES.get(user)
+        reply = (
+            "Sorry, I couldn't understand that command.\n"
+            "Type 'help' to see the list of available commands."
+        )
 
-        if reply:
+        bot_print(reply)
 
-            bot_print(reply)
+        history.append("Bot: Unknown command")
 
-            history.append(f"Bot: {reply}")
+        log_conversation(user, reply)
 
-            save_chat(user, reply)
+        continue
 
-        else:
 
-            unknown = (
-                "Sorry, I don't understand that command.\n"
-                "Type 'help' to see all available commands."
-            )
+# =====================================
+# Program Ends
+# =====================================
 
-            bot_print(unknown)
+print()
 
-            history.append("Bot: Unknown Command")
+print("=" * 70)
 
-            save_chat(user, unknown)
+print("Thank you for using DecodeBot!")
 
-print("\nThank you for using DecodeBot!")
-print("See you again soon!")
+print("Hope you enjoyed exploring Rule-Based AI.")
+
+print("Have a wonderful day!")
+
+print("=" * 70)

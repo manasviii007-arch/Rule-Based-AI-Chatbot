@@ -20,16 +20,15 @@ from responses import JOKES, FACTS, MOTIVATION
 def banner():
 
     print("=" * 70)
-    print(r"""
- ____  _____ ____ ___  ____  _____ ____   ___ _____
-|  _ \| ____/ ___/ _ \|  _ \| ____| __ ) / _ \_   _|
-| | | |  _|| |  | | | | | | |  _| |  _ \| | | || |
-| |_| | |__| |__| |_| | |_| | |___| |_) | |_| || |
-|____/|_____\____\___/|____/|_____|____/ \___/ |_|
 
-                DecodeBot v2.0
-       Rule-Based Artificial Intelligence Chatbot
-""")
+    with open("assets/logo.txt", "r", encoding="utf-8") as file:
+        print(file.read())
+
+    print("=" * 70)
+
+    with open("assets/welcome.txt", "r", encoding="utf-8") as file:
+        print(file.read())
+
     print("=" * 70)
 
 

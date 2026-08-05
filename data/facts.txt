@@ -1,0 +1,10 @@
+Artificial Intelligence was officially introduced in 1956.
+Python was created by Guido van Rossum.
+Python was first released in 1991.
+Machine Learning is a subset of Artificial Intelligence.
+Deep Learning uses artificial neural networks.
+NASA uses Artificial Intelligence in space exploration.
+The first computer bug was an actual moth.
+Python is named after Monty Python.
+Artificial Intelligence is used in healthcare, banking, education and robotics.
+Rule-Based AI is one of the earliest forms of AI.
