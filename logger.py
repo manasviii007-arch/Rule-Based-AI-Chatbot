@@ -1,59 +1,84 @@
 """
 logger.py
-Handles saving chatbot conversations to a log file.
+Handles chat logging for DecodeBot.
 """
 
 from datetime import datetime
+import os
 
 LOG_FILE = "chat_history.txt"
 
 
+def create_log_file():
+    """
+    Creates the log file if it doesn't exist.
+    """
+    if not os.path.exists(LOG_FILE):
+        with open(LOG_FILE, "w", encoding="utf-8") as file:
+            file.write("=" * 60 + "\n")
+            file.write("DecodeBot Chat History\n")
+            file.write("=" * 60 + "\n\n")
+
+
+def get_timestamp():
+    """
+    Returns current date and time.
+    """
+    return datetime.now().strftime("%d-%m-%Y %I:%M:%S %p")
+
+
 def log_message(sender, message):
     """
-    Save a single message to the chat history file.
+    Logs one message.
     """
 
-    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    create_log_file()
 
     with open(LOG_FILE, "a", encoding="utf-8") as file:
-        file.write(f"[{timestamp}] {sender}: {message}\n")
+
+        file.write(
+            f"[{get_timestamp()}] {sender}: {message}\n"
+        )
 
 
 def log_conversation(user_message, bot_message):
     """
-    Save one complete interaction.
+    Logs one complete conversation turn.
     """
 
     log_message("User", user_message)
+
     log_message("Bot", bot_message)
-    file_separator()
-
-
-def file_separator():
-    """
-    Add a separator between conversations.
-    """
 
     with open(LOG_FILE, "a", encoding="utf-8") as file:
         file.write("-" * 60 + "\n")
 
 
-def clear_log():
-    """
-    Clear the chat history.
-    """
-
-    open(LOG_FILE, "w", encoding="utf-8").close()
-
-
 def view_log():
     """
-    Print chat history.
+    Prints the complete chat history.
     """
 
-    try:
-        with open(LOG_FILE, "r", encoding="utf-8") as file:
-            print(file.read())
+    create_log_file()
 
-    except FileNotFoundError:
-        print("No chat history found.")
+    print("\n" + "=" * 60)
+    print("CHAT HISTORY")
+    print("=" * 60)
+
+    with open(LOG_FILE, "r", encoding="utf-8") as file:
+        print(file.read())
+
+    print("=" * 60)
+
+
+def clear_log():
+    """
+    Clears the chat history.
+    """
+
+    with open(LOG_FILE, "w", encoding="utf-8") as file:
+        file.write("=" * 60 + "\n")
+        file.write("DecodeBot Chat History\n")
+        file.write("=" * 60 + "\n\n")
+
+    print("Chat history cleared successfully.")

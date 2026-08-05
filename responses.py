@@ -1,49 +1,78 @@
 """
 responses.py
-Stores predefined responses and loads dynamic content from data files.
+Stores chatbot responses and loads dynamic data.
 """
 
 import random
+from version import *
 
 # ==========================================================
-# Helper Function
+# Load data from text files
 # ==========================================================
 
-def load_random_line(file_path):
+def load_data(file_path):
     """
-    Load a random non-empty line from a text file.
+    Reads all non-empty lines from a text file.
     """
+
     try:
-        with open(file_path, "r", encoding="utf-8") as file:
-            lines = [line.strip() for line in file if line.strip()]
 
-        return random.choice(lines)
+        with open(file_path, "r", encoding="utf-8") as file:
+
+            return [
+                line.strip()
+                for line in file
+                if line.strip()
+            ]
 
     except FileNotFoundError:
-        return "Data file not found."
 
-    except Exception as e:
-        return f"Error: {e}"
+        return []
 
 
 # ==========================================================
-# Dynamic Responses
+# Data Files
+# ==========================================================
+
+JOKES = load_data("data/jokes.txt")
+
+FACTS = load_data("data/facts.txt")
+
+QUOTES = load_data("data/quotes.txt")
+
+KNOWLEDGE = load_data("data/knowledge.txt")
+
+
+# ==========================================================
+# Random Generators
 # ==========================================================
 
 def random_joke():
-    return load_random_line("data/jokes.txt")
+
+    if JOKES:
+        return random.choice(JOKES)
+
+    return "No jokes available."
 
 
 def random_fact():
-    return load_random_line("data/facts.txt")
+
+    if FACTS:
+        return random.choice(FACTS)
+
+    return "No facts available."
 
 
 def random_quote():
-    return load_random_line("data/quotes.txt")
+
+    if QUOTES:
+        return random.choice(QUOTES)
+
+    return "No motivational quotes available."
 
 
 # ==========================================================
-# Greeting Responses
+# Greetings
 # ==========================================================
 
 GREETINGS = [
@@ -52,26 +81,55 @@ GREETINGS = [
 
     "Hi there! Hope you're having a wonderful day.",
 
-    "Greetings! How can I help you today?",
+    "Greetings! Welcome to DecodeBot.",
 
-    "Welcome! I'm DecodeBot.",
+    "Hey! How can I assist you today?",
 
-    "Hey! Ready to explore Rule-Based AI?",
-
-    "Hello! Let's build something amazing today.",
-
-    "Hi! What can I do for you?",
+    "Hello! Ready to explore Rule-Based AI?",
 
     "Welcome back!",
 
-    "Nice to see you again!",
+    "Good to see you again!",
 
-    "Hello! Hope you're having a productive day."
+    "Hi! Let's learn something new today."
+
 ]
 
 
 def random_greeting():
+
     return random.choice(GREETINGS)
+
+
+# ==========================================================
+# About Project
+# ==========================================================
+
+ABOUT = f"""
+Project Name : {APP_NAME}
+
+Version : {VERSION}
+
+Developer : {AUTHOR}
+
+Organization : {ORGANIZATION}
+
+Program : {PROGRAM}
+
+Language : {LANGUAGE}
+
+Project Type : {PROJECT_TYPE}
+
+License : {LICENSE}
+
+Description :
+
+{DESCRIPTION}
+
+GitHub :
+
+{GITHUB}
+"""
 
 
 # ==========================================================
@@ -80,105 +138,130 @@ def random_greeting():
 
 RESPONSES = {
 
-    # About
+    "about": ABOUT,
+
     "what is your name":
-        "My name is DecodeBot. I am a Rule-Based AI Chatbot developed using Python.",
+        f"My name is {APP_NAME}.",
 
     "who created you":
-        "I was created by Manasvi Chugh as part of the DecodeLabs Artificial Intelligence Internship.",
+        f"I was created by {AUTHOR}.",
 
     "what can you do":
-        "I can answer predefined questions, tell jokes, share AI facts, perform calculations, conduct quizzes and much more.",
+        (
+            "I can answer predefined questions, "
+            "perform calculations, tell jokes, "
+            "share AI facts, display the date and time, "
+            "conduct quizzes and much more."
+        ),
 
-    "about":
-        """Project : DecodeBot v2.0
-Developer : Manasvi Chugh
-Language : Python
-Type : Rule-Based Artificial Intelligence Chatbot
-Internship : DecodeLabs Artificial Intelligence Industrial Training Program""",
-
-    # Artificial Intelligence
     "ai":
-        """Artificial Intelligence enables machines to simulate human intelligence such as learning, reasoning and decision making.""",
+        (
+            "Artificial Intelligence enables machines "
+            "to perform tasks that normally require "
+            "human intelligence."
+        ),
 
     "artificial intelligence":
-        """Artificial Intelligence is the science of building intelligent computer systems capable of solving real-world problems.""",
+        (
+            "Artificial Intelligence is the simulation "
+            "of human intelligence in machines."
+        ),
 
     "machine learning":
-        """Machine Learning is a subset of Artificial Intelligence where computers learn patterns from data.""",
+        (
+            "Machine Learning is a subset of Artificial "
+            "Intelligence where systems learn from data."
+        ),
 
     "deep learning":
-        """Deep Learning is a branch of Machine Learning that uses neural networks with multiple layers.""",
+        (
+            "Deep Learning uses multi-layer neural "
+            "networks to solve complex problems."
+        ),
 
-    # Programming Languages
     "python":
-        "Python is a high-level programming language widely used for AI, Data Science, Automation and Web Development.",
+        (
+            "Python is a popular programming language "
+            "used in AI, Data Science, Web Development "
+            "and Automation."
+        ),
 
     "java":
-        "Java is an object-oriented programming language used in enterprise software and Android development.",
+        (
+            "Java is an object-oriented programming "
+            "language widely used in enterprise software."
+        ),
 
     "c++":
-        "C++ is a powerful programming language used in system software, game development and competitive programming.",
+        (
+            "C++ is commonly used in game development, "
+            "system software and competitive programming."
+        ),
 
     "javascript":
-        "JavaScript is the programming language used to build interactive websites.",
+        (
+            "JavaScript is used to build interactive "
+            "web applications."
+        ),
 
     "html":
-        "HTML stands for HyperText Markup Language and defines the structure of webpages.",
+        "HTML defines the structure of web pages.",
 
     "css":
-        "CSS stands for Cascading Style Sheets and is used to style webpages.",
+        "CSS is used to style web pages.",
 
-    # Feelings
     "i am happy":
-        "That's wonderful! Keep smiling and continue learning every day.",
+        "That's wonderful! Keep smiling and keep learning.",
 
     "i am sad":
-        "I'm sorry you're feeling sad. Every challenge is temporary. Keep believing in yourself.",
+        (
+            "I'm sorry you're feeling sad. "
+            "Every challenge is temporary."
+        ),
 
     "i am stressed":
-        "Take a deep breath, drink some water and remember to take short breaks while studying.",
-
-    "i am bored":
-        "How about solving a coding problem or learning a new Python concept?",
-
-    # Thanks
-    "thanks":
-        "You're welcome! Happy coding!",
+        (
+            "Take a deep breath, relax for a moment "
+            "and believe in yourself."
+        ),
 
     "thank you":
-        "You're always welcome!",
+        "You're welcome!",
 
-    # Goodbye
+    "thanks":
+        "Happy to help!",
+
     "bye":
         "Goodbye! Have a wonderful day.",
 
     "exit":
-        "Thank you for using DecodeBot. Keep learning and building amazing projects!",
+        "Thank you for using DecodeBot.",
 
     "quit":
-        "Session ended. See you next time!"
+        "Session ended successfully."
 }
 
+
 # ==========================================================
-# Greeting Commands
+# Commands
 # ==========================================================
 
 GREETING_COMMANDS = [
-    "hi",
+
     "hello",
+    "hi",
     "hey",
     "good morning",
     "good afternoon",
     "good evening"
+
 ]
 
-# ==========================================================
-# Exit Commands
-# ==========================================================
 
 EXIT_COMMANDS = [
+
     "bye",
     "exit",
     "quit"
+
 ]

@@ -1,7 +1,6 @@
 """
 chatbot.py
-DecodeBot v2.0
-Main Application
+Main Application of DecodeBot v2.1
 """
 
 from responses import (
@@ -29,7 +28,11 @@ from utils import (
     system_info,
     clear_screen,
     quiz,
-    show_history
+    show_history,
+    read_knowledge,
+    search_knowledge,
+    about,
+    goodbye
 )
 
 from logger import (
@@ -37,16 +40,17 @@ from logger import (
     view_log
 )
 
-import os
+from version import APP_NAME, VERSION
 
-
-# =====================================
-# Startup
-# =====================================
+# ============================================
+# Initial Setup
+# ============================================
 
 clear_screen()
 
 banner()
+
+history = []
 
 print()
 
@@ -57,15 +61,19 @@ if not name:
 
 bot_print(f"Welcome {name}!")
 
-bot_print("Type 'help' to view all available commands.")
+bot_print(
+    f"You are now using {APP_NAME} Version {VERSION}."
+)
 
-history = []
+bot_print(
+    "Type 'help' to see all available commands."
+)
 
 print()
 
-# =====================================
-# Main Chat Loop
-# =====================================
+# ============================================
+# Main Loop
+# ============================================
 
 while True:
 
@@ -73,9 +81,9 @@ while True:
 
     history.append(f"{name}: {user}")
 
-    # =====================================
-    # Greeting Commands
-    # =====================================
+    # ========================================
+    # Greetings
+    # ========================================
 
     if user in GREETING_COMMANDS:
 
@@ -89,10 +97,9 @@ while True:
 
         continue
 
-
-    # =====================================
-    # Exit Commands
-    # =====================================
+    # ========================================
+    # Exit
+    # ========================================
 
     elif user in EXIT_COMMANDS:
 
@@ -104,40 +111,37 @@ while True:
 
         log_conversation(user, reply)
 
-        print("\nConversation saved successfully.")
+        goodbye()
 
         break
 
-
-    # =====================================
+    # ========================================
     # Help
-    # =====================================
+    # ========================================
 
     elif user == "help":
 
         show_help()
 
-        history.append("Bot: Displayed help menu")
+        history.append("Bot: Help menu shown")
 
         continue
 
-
-    # =====================================
+    # ========================================
     # Calculator
-    # =====================================
+    # ========================================
 
     elif user == "calculator":
 
         calculator()
 
-        history.append("Bot: Calculator opened")
+        history.append("Bot: Calculator used")
 
         continue
 
-
-    # =====================================
+    # ========================================
     # Square
-    # =====================================
+    # ========================================
 
     elif user == "square":
 
@@ -147,10 +151,9 @@ while True:
 
         continue
 
-
-    # =====================================
+    # ========================================
     # Cube
-    # =====================================
+    # ========================================
 
     elif user == "cube":
 
@@ -160,10 +163,9 @@ while True:
 
         continue
 
-
-    # =====================================
+    # ========================================
     # Factorial
-    # =====================================
+    # ========================================
 
     elif user == "factorial":
 
@@ -173,10 +175,9 @@ while True:
 
         continue
 
-
-    # =====================================
+    # ========================================
     # Percentage
-    # =====================================
+    # ========================================
 
     elif user == "percentage":
 
@@ -186,23 +187,21 @@ while True:
 
         continue
 
-
-    # =====================================
+    # ========================================
     # Multiplication Table
-    # =====================================
+    # ========================================
 
     elif user == "table":
 
         table()
 
-        history.append("Bot: Table generated")
+        history.append("Bot: Multiplication table generated")
 
         continue
 
-
-    # =====================================
+    # ========================================
     # Joke
-    # =====================================
+    # ========================================
 
     elif user == "joke":
 
@@ -216,10 +215,9 @@ while True:
 
         continue
 
-
-    # =====================================
+    # ========================================
     # Fact
-    # =====================================
+    # ========================================
 
     elif user == "fact":
 
@@ -233,10 +231,9 @@ while True:
 
         continue
 
-
-    # =====================================
+    # ========================================
     # Motivation
-    # =====================================
+    # ========================================
 
     elif user == "motivate":
 
@@ -249,106 +246,96 @@ while True:
         log_conversation(user, reply)
 
         continue
+"""
+chatbot.py
+Main Application of DecodeBot v2.1
+"""
 
+from responses import (
+    RESPONSES,
+    GREETING_COMMANDS,
+    EXIT_COMMANDS,
+    random_greeting,
+    random_joke,
+    random_fact,
+    random_quote
+)
 
-    # =====================================
-    # Date
-    # =====================================
+from utils import (
+    banner,
+    bot_print,
+    show_help,
+    calculator,
+    square,
+    cube,
+    factorial,
+    percentage,
+    table,
+    show_date,
+    show_time,
+    system_info,
+    clear_screen,
+    quiz,
+    show_history,
+    read_knowledge,
+    search_knowledge,
+    about,
+    goodbye
+)
 
-    elif user == "date":
+from logger import (
+    log_conversation,
+    view_log
+)
 
-        show_date()
+from version import APP_NAME, VERSION
 
-        history.append("Bot: Displayed current date")
+# ============================================
+# Initial Setup
+# ============================================
 
-        continue
+clear_screen()
 
+banner()
 
-    # =====================================
-    # Time
-    # =====================================
+history = []
 
-    elif user == "time":
+print()
 
-        show_time()
+name = input("Bot : Hello! What's your name?\nYou : ").strip()
 
-        history.append("Bot: Displayed current time")
+if not name:
+    name = "Friend"
 
-        continue
-    # =====================================
-    # System Information
-    # =====================================
+bot_print(f"Welcome {name}!")
 
-    elif user == "system":
+bot_print(
+    f"You are now using {APP_NAME} Version {VERSION}."
+)
 
-        system_info()
+bot_print(
+    "Type 'help' to see all available commands."
+)
 
-        history.append("Bot: Displayed system information")
+print()
 
-        continue
+# ============================================
+# Main Loop
+# ============================================
 
+while True:
 
-    # =====================================
-    # Quiz
-    # =====================================
+    user = input(f"{name} : ").lower().strip()
 
-    elif user == "quiz":
+    history.append(f"{name}: {user}")
 
-        quiz()
+    # ========================================
+    # Greetings
+    # ========================================
 
-        history.append("Bot: Quiz completed")
+    if user in GREETING_COMMANDS:
 
-        continue
-
-
-    # =====================================
-    # History
-    # =====================================
-
-    elif user == "history":
-
-        show_history(history)
-
-        history.append("Bot: Displayed conversation history")
-
-        continue
-
-
-    # =====================================
-    # Log File
-    # =====================================
-
-    elif user == "logs":
-
-        print()
-
-        view_log()
-
-        print()
-
-        continue
-
-
-    # =====================================
-    # Clear Screen
-    # =====================================
-
-    elif user == "clear":
-
-        clear_screen()
-
-        banner()
-
-        continue
-
-
-    # =====================================
-    # About Project
-    # =====================================
-
-    elif user == "about":
-
-        reply = RESPONSES["about"]
+        reply = random_greeting()
 
         bot_print(reply)
 
@@ -358,12 +345,11 @@ while True:
 
         continue
 
+    # ========================================
+    # Exit
+    # ========================================
 
-    # =====================================
-    # Predefined Responses
-    # =====================================
-
-    elif user in RESPONSES:
+    elif user in EXIT_COMMANDS:
 
         reply = RESPONSES[user]
 
@@ -373,41 +359,138 @@ while True:
 
         log_conversation(user, reply)
 
+        goodbye()
+
+        break
+
+    # ========================================
+    # Help
+    # ========================================
+
+    elif user == "help":
+
+        show_help()
+
+        history.append("Bot: Help menu shown")
+
         continue
 
+    # ========================================
+    # Calculator
+    # ========================================
 
-    # =====================================
-    # Unknown Command
-    # =====================================
+    elif user == "calculator":
 
-    else:
+        calculator()
 
-        reply = (
-            "Sorry, I couldn't understand that command.\n"
-            "Type 'help' to see the list of available commands."
-        )
+        history.append("Bot: Calculator used")
+
+        continue
+
+    # ========================================
+    # Square
+    # ========================================
+
+    elif user == "square":
+
+        square()
+
+        history.append("Bot: Square calculated")
+
+        continue
+
+    # ========================================
+    # Cube
+    # ========================================
+
+    elif user == "cube":
+
+        cube()
+
+        history.append("Bot: Cube calculated")
+
+        continue
+
+    # ========================================
+    # Factorial
+    # ========================================
+
+    elif user == "factorial":
+
+        factorial()
+
+        history.append("Bot: Factorial calculated")
+
+        continue
+
+    # ========================================
+    # Percentage
+    # ========================================
+
+    elif user == "percentage":
+
+        percentage()
+
+        history.append("Bot: Percentage calculated")
+
+        continue
+
+    # ========================================
+    # Multiplication Table
+    # ========================================
+
+    elif user == "table":
+
+        table()
+
+        history.append("Bot: Multiplication table generated")
+
+        continue
+
+    # ========================================
+    # Joke
+    # ========================================
+
+    elif user == "joke":
+
+        reply = random_joke()
 
         bot_print(reply)
 
-        history.append("Bot: Unknown command")
+        history.append(f"Bot: {reply}")
 
         log_conversation(user, reply)
 
         continue
 
+    # ========================================
+    # Fact
+    # ========================================
 
-# =====================================
-# Program Ends
-# =====================================
+    elif user == "fact":
 
-print()
+        reply = random_fact()
 
-print("=" * 70)
+        bot_print(reply)
 
-print("Thank you for using DecodeBot!")
+        history.append(f"Bot: {reply}")
 
-print("Hope you enjoyed exploring Rule-Based AI.")
+        log_conversation(user, reply)
 
-print("Have a wonderful day!")
+        continue
 
-print("=" * 70)
+    # ========================================
+    # Motivation
+    # ========================================
+
+    elif user == "motivate":
+
+        reply = random_quote()
+
+        bot_print(reply)
+
+        history.append(f"Bot: {reply}")
+
+        log_conversation(user, reply)
+
+        continue
